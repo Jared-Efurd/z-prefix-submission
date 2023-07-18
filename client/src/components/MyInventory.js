@@ -62,7 +62,7 @@ const MyInventory = () => {
         Your Inventory
       </Header>
       <Divider />
-      <CreateNewItemButton>
+      <CreateNewItemButton onClick={() => {navigate('/create-new-item')}}>
         Create New Item
       </CreateNewItemButton>
       <ItemContainer>

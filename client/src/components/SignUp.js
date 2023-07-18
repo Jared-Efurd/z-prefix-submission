@@ -2,6 +2,7 @@ import Styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
+import Toaster, { notify } from './Toaster'
 
 const Container = Styled.div`
   background-color: #D9D9D9;
@@ -57,25 +58,51 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleSignUp = () => {
-    if (password === confirmPassword) {
-      fetch('http://localhost:8080/sign-up', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          first_name: firstName,
-          last_name: lastName,
-          username: username,
-          password: password
-        })
-      })
-        .then(res => res.json())
-        .then(data => {
-          setUser(data)
-        })
-        .catch(err => console.error(err));
+    if (firstName.length === 0) {
+      notify('"First Name" field is empty', 'error', 'top-center');
+      return;
     }
+    if (lastName.length === 0) {
+      notify('"Last Name" field is empty', 'error', 'top-center');
+      return;
+    }
+    if (username.length === 0) {
+      notify('"Username" field is empty', 'error', 'top-center');
+      return;
+    }
+    if (password.length === 0) {
+      notify('"Password" field is empty', 'error', 'top-center');
+      return;
+    }
+    if (confirmPassword.length === 0) {
+      notify('"Confirm Password" field is empty', 'error', 'top-center');
+      return;
+    }
+    if (password !== confirmPassword) {
+      notify('Passwords do not match', 'error', 'top-center');
+      return;
+    }
+
+    fetch('http://localhost:8080/users', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        first_name: firstName,
+        last_name: lastName,
+        username: username,
+        password: password
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data);
+      })
+      .catch(err => {
+        notify('Error creating account...', 'error', 'top-center');
+        console.error(err);
+      });
   }
 
   useEffect(() => {
@@ -86,42 +113,45 @@ const SignUp = () => {
   [user]);
 
   return (
-    <Container>
-      <Header>
-        Don't have an account?
-      </Header>
-      <Input
-        placeholder='First Name'
-        type='text'
-        onChange={(event) => { setFirstName(event.target.value)}}
-      />
-      <Input
-        placeholder='Last Name'
-        type='text'
-        onChange={(event) => { setLastName(event.target.value)}}
-      />
-      <Input 
-        placeholder='Username' 
-        type='text' 
-        onChange={(event) => { setUsername(event.target.value) }}
-      />
-      <Input 
-        placeholder='Password' 
-        type='password' 
-        onChange={(event) => { setPassword(event.target.value) }}
-      />
-      <Input 
-        placeholder='Confirm Password' 
-        type='password' 
-        onChange={(event) => { setConfirmPassword(event.target.value) }}
-      />
-      <SignUpButton onClick={handleSignUp}>
-        Sign Up
-      </SignUpButton>
-      <LoginLink onClick={() => { navigate('/login') }}>
-        Login
-      </LoginLink>
-    </Container>
+    <>
+      <Container>
+        <Header>
+          Don't have an account?
+        </Header>
+        <Input
+          placeholder='First Name'
+          type='text'
+          onChange={(event) => { setFirstName(event.target.value)}}
+        />
+        <Input
+          placeholder='Last Name'
+          type='text'
+          onChange={(event) => { setLastName(event.target.value)}}
+        />
+        <Input 
+          placeholder='Username' 
+          type='text' 
+          onChange={(event) => { setUsername(event.target.value) }}
+        />
+        <Input 
+          placeholder='Password' 
+          type='password' 
+          onChange={(event) => { setPassword(event.target.value) }}
+        />
+        <Input 
+          placeholder='Confirm Password' 
+          type='password' 
+          onChange={(event) => { setConfirmPassword(event.target.value) }}
+        />
+        <SignUpButton onClick={handleSignUp}>
+          Sign Up
+        </SignUpButton>
+        <LoginLink onClick={() => { navigate('/login') }}>
+          Login
+        </LoginLink>
+      </Container>
+      <Toaster />
+    </>
   );
 }
 

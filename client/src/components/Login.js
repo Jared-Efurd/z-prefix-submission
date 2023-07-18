@@ -2,6 +2,7 @@ import Styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
+import Toaster, { notify } from './Toaster'
 
 const Container = Styled.div`
   background-color: #D9D9D9;
@@ -66,9 +67,12 @@ const Login = () => {
     })
       .then(res => res.json())
       .then(data => {
-        setUser(data)
+        setUser(data);
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        notify('There was an error logging in...', 'error', 'top-center');
+        console.error(err);
+      });
   }
 
   useEffect(() => {
@@ -79,27 +83,31 @@ const Login = () => {
   [user]);
 
   return (
-    <Container>
-      <Header>
-        Already have an account?
-      </Header>
-      <Input 
-        placeholder='Username' 
-        type='text' 
-        onChange={(event) => { setUsername(event.target.value) }}
-      />
-      <Input 
-        placeholder='Password' 
-        type='password' 
-        onChange={(event) => { setPassword(event.target.value) }}
-      />
-      <LoginButton onClick={handleLogin}>
-        Login
-      </LoginButton>
-      <SignUpLink onClick={() => { navigate('/sign-up') }}>
-        Sign Up
-      </SignUpLink>
-    </Container>
+    <>
+      <Container>
+        <Header>
+          Already have an account?
+        </Header>
+        <Input 
+          placeholder='Username' 
+          type='text' 
+          onChange={(event) => { setUsername(event.target.value) }}
+        />
+        <Input 
+          placeholder='Password' 
+          type='password' 
+          onChange={(event) => { setPassword(event.target.value) }}
+        />
+        <LoginButton onClick={handleLogin}>
+          Login
+        </LoginButton>
+        <SignUpLink onClick={() => { navigate('/sign-up') }}>
+          Sign Up
+        </SignUpLink>
+      </Container>
+      <Toaster />
+    </>
+    
   );
 }
 
