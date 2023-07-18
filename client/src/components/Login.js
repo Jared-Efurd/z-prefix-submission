@@ -1,10 +1,9 @@
 import Styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 
 const Container = Styled.div`
-
   background-color: #D9D9D9;
   display: flex;
   flex-direction: column;
@@ -37,6 +36,9 @@ const LoginButton = Styled.button`
   letter-spacing: 0.1vw;
   margin-top: 2vh;
   margin-bottom: 2vh;
+  &:hover {
+    background-color: #71C1EE;
+  }
 `;
 
 const SignUpLink = Styled.div`
@@ -65,10 +67,16 @@ const Login = () => {
       .then(res => res.json())
       .then(data => {
         setUser(data)
-        navigate('/my-inventory');
       })
       .catch(err => console.error(err));
   }
+
+  useEffect(() => {
+    if (user.id > 0) {
+      navigate('/my-inventory');
+    }
+  }, 
+  [user]);
 
   return (
     <Container>

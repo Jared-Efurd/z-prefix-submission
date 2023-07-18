@@ -42,9 +42,15 @@ const Header = () => {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-
-  }, [user])
+  const handleLogout = () => {
+    navigate('/login');
+    setUser({
+      id: 0,
+      first_name: '',
+      last_name: '',
+      username: ''
+    });
+  }
 
   return (
     <Container>
@@ -59,7 +65,7 @@ const Header = () => {
         </h2>
       </InventoryNavButton>
       {user.id ? (
-        <LogoutNavButton onClick={() => {navigate('/login')}}>
+        <LogoutNavButton onClick={handleLogout}>
           Logout
         </LogoutNavButton>
       ) : (
