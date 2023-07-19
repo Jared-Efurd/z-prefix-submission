@@ -53,27 +53,30 @@ const Header = () => {
   }
 
   return (
-    <Container>
-      {user.id ? (
-        <MyInventoryNavButton onClick={() => {navigate('/my-inventory')}}>
-          My Inventory
-        </MyInventoryNavButton>
-      ): <></>}
-      <InventoryNavButton onClick={() => {navigate('/')}}>
-        <h2>
-          Inventory
-        </h2>
-      </InventoryNavButton>
-      {user.id ? (
-        <LogoutNavButton onClick={handleLogout}>
-          Logout
-        </LogoutNavButton>
-      ) : (
-        <LoginNavButton onClick={() => {navigate('/login')}}>
-          Login
-        </LoginNavButton>
-      )}
-    </Container>
+    <>
+    
+      <Container>
+        {user.id ? (
+          <MyInventoryNavButton onClick={() => {navigate('/my-inventory')}}>
+            My Inventory
+          </MyInventoryNavButton>
+        ): <></>}
+        <InventoryNavButton onClick={() => {navigate('/')}}>
+          <h2>
+            Inventory
+          </h2>
+        </InventoryNavButton>
+        {user.id ? (
+          <LogoutNavButton onClick={handleLogout}>
+            Logout
+          </LogoutNavButton>
+        ) : (
+          <LoginNavButton onClick={() => {navigate('/login')}}>
+            Login
+          </LoginNavButton>
+        )}
+      </Container>
+    </>
   );
 }
 

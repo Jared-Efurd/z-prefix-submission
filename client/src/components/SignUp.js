@@ -101,7 +101,6 @@ const SignUp = () => {
       })
       .catch(err => {
         notify('Error creating account...', 'error', 'top-center');
-        console.error(err);
       });
   }
 

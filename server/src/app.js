@@ -13,45 +13,43 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
+
   if (username && password) {
     knex('user')
       .select('*')
       .where('username', username)
-      .then(data => {
-        const user = data[0];
-        if (user.password === password) {
-          const response = {...user};
-          delete response.password;
-          res.status(200).send(JSON.stringify(response));
-        } else {
-          res.status(401).send('Invalid username or password');
-          throw new Error('Invalid password');
-        }
+      .where('password', password)
+      .then(users => {
+        const user = users[0];
+        delete user.password;
+        res.status(200).send(JSON.stringify(user));
       })
       .catch(err => {
+        res.status(401).send(JSON.stringify({message:`Invalid username or password!`}));
         console.log(err);
       });
   } else {
-    res.status(401).send('Invalid username or password');
+    res.status(401).send(JSON.stringify({message:`Invalid username or password!`}));
   }
 })
 
 app.post('/users', (req, res) => {
   const { first_name, last_name, username, password } = req.body;
+
   if ( first_name && last_name && username && password) {
     knex('user')
       .select('*')
       .where('username', username)
-      .then(data => {
-        if (data.length > 0) {
-          res.status(409).send('Username is already in use');
+      .then(users => {
+        if (users.length > 0) {
+          res.status(409).send(JSON.stringify({message:`Username is already in use!`}));
         } else {
-          const user = req.body;
+          const newUser = req.body;
           knex('user')
-            .insert(user, ['id', 'first_name', 'last_name', 'username'])
-            .then(data => {
-              const newUser = data[0];
-              res.status(201).send(JSON.stringify(newUser));
+            .insert(newUser, ['id', 'first_name', 'last_name', 'username'])
+            .then(users => {
+              const user = users[0];
+              res.status(201).send(JSON.stringify(user));
               console.log(`Successfully added new user`);
             })
             .catch(err => {
@@ -60,20 +58,21 @@ app.post('/users', (req, res) => {
         }
       })
   } else {
-    res.status(401).send('Invalid information provided');
+    res.status(401).send(JSON.stringify({message:`Invalid info provided!`}));
   }
 })
 
 app.post('/items', (req, res) => {
   const { user_id, name, description, quantity } = req.body;
+
   if (user_id && name && description && quantity) {
     knex('item')
       .select('*')
       .where('user_id', user_id)
       .where('name', name)
-      .then(data => {
-        if (data.length > 0) {
-          res.status(409).send('Item already exists!');
+      .then(items => {
+        if (items.length > 0) {
+          res.status(409).send(JSON.stringify({message:`Item already exists!`}));
         } else {
           const item = {
             user_id: user_id,
@@ -83,8 +82,8 @@ app.post('/items', (req, res) => {
           };
           knex('item')
             .insert(item, ['id', 'user_id', 'name', 'description', 'quantity'])
-            .then(data => {
-              const newItem = data[0];
+            .then(items => {
+              const newItem = items[0];
               res.status(201).send(JSON.stringify(newItem));
               console.log(`Successfully added new item`);
             })
@@ -94,16 +93,101 @@ app.post('/items', (req, res) => {
         }
       })
   } else {
-    res.status(401).send('Invalid information provided');
+    res.status(401).send(JSON.stringify({message:`Invalid info provided!`}));
   }
 })
 
 app.get('/items', (req, res) => {
-
+  knex('item')
+    .select('*')
+    .then(items => {
+      if (items.length > 0) {
+        res.status(200).send(JSON.stringify(items));
+      } else {
+        res.status(404).send(JSON.stringify({message:`Items not found!`}));
+      }
+    })
 })
 
-app.get('items/:itemId', (req, res) => {
-  
+app.get('/items/:itemId', (req, res) => {
+  const itemId = req.params.itemId;
+
+  knex('item')
+    .select('*')
+    .where('id', itemId)
+    .then(items => {
+      const item = items[0];
+      res.status(200).send(JSON.stringify(item));
+    })
+    .catch(err => {
+      res.status(404).send(JSON.stringify({message:`Item not found!`}));
+    })
+})
+
+app.get('/users/:userId/items', (req, res) => {
+  const userId = req.params.userId;
+
+  knex('item')
+    .select('*')
+    .where('user_id', userId)
+    .then(data => {
+      res.status(200).send(JSON.stringify(data));
+    })
+    .catch(err => {
+      console.log(err);
+    })
+})
+
+app.delete('/users/:userId/items/:itemId/delete', (req, res) => {
+  const userId = req.params.userId;
+  const itemId = req.params.itemId;
+
+  knex('item')
+    .where('id', itemId)
+    .where('user_id', userId)
+    .del()
+    .then(affectedRowsCount => {
+      knex('item')
+        .select('*')
+        .where('user_id', userId)
+        .then(data => {
+          res.status(200).send(JSON.stringify(data));
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    })
+    .catch(err => {
+      res.status(400).send(JSON.stringify({message:`Failed to delete item!`}));
+      console.log(err);
+    })
+})
+
+app.put('/users/:userId/items/:itemId/update', (req, res) => {
+  const userId = req.params.userId;
+  const itemId = req.params.itemId;
+  const { id, user_id, name, description, quantity } = req.body;
+
+  if (id && user_id && name && description && quantity) {
+    knex('item')
+      .where('id', itemId)
+      .where('user_id', userId)
+      .update({
+        id: id,
+        user_id: user_id,
+        name: name,
+        quantity: quantity,
+        description: description
+      }, ['id', 'user_id', 'name', 'quantity', 'description'])
+      .then(items => {
+        const item = items[0];
+        res.status(200).send(JSON.stringify(item));
+      })
+      .catch(err => {
+        res.status(400).send(JSON.stringify({message:`Failed to update item!`}));
+        console.log(err);
+      })
+  }
 })
 
 app.listen(port, () => {

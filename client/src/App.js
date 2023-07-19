@@ -29,7 +29,7 @@ function App() {
           <Route path='/my-inventory' element={<MyInventory />} />
           <Route path='/' element={<Inventory />} />
           <Route path='/create-new-item' element={<CreateNewItem />} />
-          <Route path='/item/:itemId' element={<DetailedItemView />} />
+          <Route path='/items/:itemId' element={<DetailedItemView />} />
         </Routes>
       </Router>
     </UserContext.Provider>

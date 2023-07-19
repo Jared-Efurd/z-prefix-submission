@@ -71,7 +71,6 @@ const Login = () => {
       })
       .catch(err => {
         notify('There was an error logging in...', 'error', 'top-center');
-        console.error(err);
       });
   }
 

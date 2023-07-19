@@ -96,12 +96,10 @@ const CreateNewItem = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         navigate('/my-inventory');
       })
       .catch(err => {
         notify('There was an error creating a new item...', 'error', 'top-center');
-        console.error(err);
       });
   }
 
