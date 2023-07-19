@@ -10,13 +10,16 @@ const Container = Styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  box-shadow: 0px 0px 16px #0004;
+  box-shadow: 0px 0px 16px #07194144;
+  min-width: 100vw;
+  min-height: 90px;
+  margin-bottom: 5vh;
 `;
 
 const MyInventoryNavButton = Styled.div`
   grid-column: 1 / 2;
   cursor: pointer;
-  padding-left: 1vw;
+  padding-left: 20px;
   &:hover {
     color: #166895
   };
@@ -31,11 +34,17 @@ const InventoryNavButton = Styled.div`
   };
 `;
 
+const ActionMenu = Styled.div`
+  grid-column: 3 / 4;
+  display: flex;
+  flex-direction: row-reverse;
+`;
+
 const LoginNavButton = Styled.div`
   grid-column: 3 / 4;
   cursor: pointer;
   text-align: right;
-  padding-right: 1vw;
+  padding-right: 20px;
   &:hover {
     color: #166895
   };
@@ -45,10 +54,14 @@ const LogoutNavButton = Styled.div`
   grid-column: 3 / 4;
   cursor: pointer;
   text-align: right;
-  padding-right: 1vw;
+  padding-right: 20px;
   &:hover {
     color: #166895
   };
+`;
+
+const WelcomeLabel = Styled.div`
+ padding-right: 20px;
 `;
 
 const Header = () => {
@@ -79,15 +92,22 @@ const Header = () => {
             Inventory
           </h2>
         </InventoryNavButton>
+        <ActionMenu>
         {user.id ? (
-          <LogoutNavButton onClick={handleLogout}>
-            Logout
-          </LogoutNavButton>
+          <>
+            <LogoutNavButton onClick={handleLogout}>
+              Logout
+            </LogoutNavButton>
+            <WelcomeLabel>
+              Signed in as {user.username}
+            </WelcomeLabel>
+          </>
         ) : (
           <LoginNavButton onClick={() => {navigate('/login')}}>
             Login
           </LoginNavButton>
         )}
+        </ActionMenu>
       </Container>
     </>
   );

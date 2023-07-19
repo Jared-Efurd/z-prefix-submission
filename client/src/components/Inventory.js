@@ -9,10 +9,9 @@ const Container = Styled.div`
   display: flex;
   flex-direction: column;
   padding: 2vw;
-  margin-top: 5vh;
-  margin-left: 20vw;
-  margin-right: 20vw;
   border: 1px solid #0004;
+  width: 50vw;
+  min-width: 350px;
 `;
 
 const Header = Styled.h2`
@@ -25,27 +24,12 @@ const Divider = Styled.div`
   margin-bottom: 2vh;
 `;
 
-const CreateNewItemButton = Styled.button`
-  background-color: #4BA2D2;
-  text-align: center;
-  border-radius: 0.5vh;
-  cursor: pointer;
-  border: none;
-  padding: 2vh;
-  color: white;
-  letter-spacing: 0.1vw;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  &:hover {
-    background-color: #71C1EE;
-  }
-`;
-
 const ItemContainer = Styled.div`
   display: flex;
   flex-flow: row wrap;
   background-color: white;
   padding: 1vw;
+  justify-content: space-around;
 `;
 
 const Item = Styled.div`
@@ -57,13 +41,15 @@ const Item = Styled.div`
   border-radius: 1vh;
   margin-right: 2vh;
   margin-bottom: 2vh;
-  padding: 1vw;
+  padding: 2vw;
   cursor: pointer;
   border: 1px solid #0004;
-  box-shadow: 0px 0px 16px #0004;
+  box-shadow: 0px 0px 10px #16689530;
   &:hover {
-    box-shadow: 0px 0px 20px #0002;
+    box-shadow: none;
   }
+  min-width: 200px;
+  min-height: 200px;
 `;
 
 const ItemHeader = Styled.h3`

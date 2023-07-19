@@ -11,10 +11,9 @@ const Container = Styled.div`
   display: flex;
   flex-direction: column;
   padding: 2vw;
-  margin-top: 5vh;
-  margin-left: 20vw;
-  margin-right: 20vw;
   border: 1px solid #0004;
+  width: 50vw;
+  min-width: 350px;
 `;
 
 const Header = Styled.h2`
@@ -41,6 +40,7 @@ const CreateNewItemButton = Styled.button`
   &:hover {
     background-color: #71C1EE;
   }
+  min-height: 40px;
 `;
 
 const ItemContainer = Styled.div`
@@ -48,6 +48,7 @@ const ItemContainer = Styled.div`
   flex-flow: row wrap;
   background-color: white;
   padding: 1vw;
+  justify-content: space-around;
 `;
 
 const Item = Styled.div`
@@ -57,15 +58,16 @@ const Item = Styled.div`
   flex-direction: column;
   background-color: white;
   border-radius: 1vh;
-  margin-right: 2vh;
-  margin-bottom: 2vh;
-  padding: 1vw;
+  margin: 0.5vw;
+  padding: 2vw;
   cursor: pointer;
   border: 1px solid #0004;
-  box-shadow: 0px 0px 16px #0004;
+  box-shadow: 0px 0px 10px #16689530;
   &:hover {
-    box-shadow: 0px 0px 20px #0002;
+    box-shadow: none;
   }
+  min-width: 200px;
+  min-height: 200px;
 `;
 
 const ItemHeader = Styled.h3`
@@ -83,9 +85,6 @@ const ItemDescription = Styled.div`
 
 const DeleteButton = Styled(DeleteIcon)`
   cursor: pointer;
-  &:hover {
-    fill: red;
-  }
 `;
 
 const EmptyMessage = Styled.div`

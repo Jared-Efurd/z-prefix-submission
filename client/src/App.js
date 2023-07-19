@@ -10,9 +10,12 @@ import MyInventory from './components/MyInventory';
 import SignUp from './components/SignUp';
 
 const Background = Styled.div`
-  background: linear-gradient(#D9D9D9, #FFF);
+  background: linear-gradient(#dce0e9, #FFF);
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const UserContext = React.createContext();

@@ -9,9 +9,8 @@ const Container = Styled.div`
   display: flex;
   flex-direction: column;
   padding: 2vw;
-  margin-top: 5vh;
-  margin-left: 30vw;
-  margin-right: 30vw;
+  width: 30vw;
+  min-width: 350px;
   border: 1px solid #0004;
 `;
 
@@ -26,6 +25,7 @@ const Input = Styled.input`
   border: none;
   padding: 1vh;
   border-bottom: 1px solid #0004;
+  min-height: 30px;
 `;
 
 const LoginButton = Styled.button`
@@ -42,11 +42,13 @@ const LoginButton = Styled.button`
   &:hover {
     background-color: #71C1EE;
   }
+  min-height: 40px;
 `;
 
 const SignUpLink = Styled.div`
   text-align: center;
   cursor: pointer;
+  margin-bottom: 1vh;
 `;
 
 const Login = () => {

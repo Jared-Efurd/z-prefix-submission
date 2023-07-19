@@ -5,16 +5,16 @@ import { UserContext } from '../App';
 import Toaster, { notify } from './Toaster'
 
 import { ReactComponent as EditIcon } from '../images/edit-icon.svg';
+import { ReactComponent as ExitIcon } from '../images/exit-icon.svg';
 
 const Container = Styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
   padding: 2vw;
-  margin-top: 5vh;
-  margin-left: 20vw;
-  margin-right: 20vw;
   border: 1px solid #0004;
+  width: 30vw;
+  min-width: 350px;
 `;
 
 const Header = Styled.header`
@@ -28,6 +28,12 @@ const Heading = Styled.h2`
 `;
 
 const EditButton = Styled(EditIcon)`
+  grid-column: 3 / 4;
+  cursor: pointer;
+  padding-left: calc(100% - 24px);
+`;
+
+const ExitButton = Styled(ExitIcon)`
   grid-column: 3 / 4;
   cursor: pointer;
   padding-left: calc(100% - 24px);
@@ -159,7 +165,7 @@ const DetailedItemView = () => {
           <>
             <Header>
               <Heading>Edit Item</Heading>
-              {user.id === item.user_id && <EditButton onClick={toggleEditMode} />}
+              {user.id === item.user_id && (editMode ? <ExitButton onClick={toggleEditMode}/> : <EditButton onClick={toggleEditMode} />)}
               <Input 
                 placeholder='Name' 
                 type='text'
@@ -191,7 +197,7 @@ const DetailedItemView = () => {
               <Heading>
                 {item.name}
               </Heading>
-              {user.id === item.user_id && <EditButton onClick={() => {setEditMode(!editMode)}} />}
+              {user.id === item.user_id && (editMode ? <ExitButton onClick={toggleEditMode}/> : <EditButton onClick={toggleEditMode} />)}
             </Header>
             <Divider />
             <ItemQuantity>

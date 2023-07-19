@@ -9,10 +9,9 @@ const Container = Styled.div`
   display: flex;
   flex-direction: column;
   padding: 2vw;
-  margin-top: 5vh;
-  margin-left: 20vw;
-  margin-right: 20vw;
   border: 1px solid #0004;
+  width: 30vw;
+  min-width: 350px;
 `;
 
 const Header = Styled.h2`
@@ -32,6 +31,7 @@ const Input = Styled.input`
   border: none;
   padding: 1vh;
   border-bottom: 1px solid #0004;
+  min-height: 30px;
 `;
 
 const TextArea = Styled.textarea`
@@ -60,6 +60,7 @@ const SaveButton = Styled.button`
   &:hover {
     background-color: #71C1EE;
   }
+  min-height: 40px;
 `;
 
 
