@@ -87,7 +87,7 @@ const ItemDescription = Styled.div`
 
 `;
 
-const DeleteButton = Styled(DeleteIcon)`
+const DeleteButton = Styled.span`
   cursor: pointer;
   min-width: 24px;
 `;
@@ -142,7 +142,9 @@ const MyInventory = () => {
           <Item key={item.id} onClick={() => {navigate(`/items/${item.id}`)}}>
             <ItemHeader>
               {item.name}
-              <DeleteButton onClick={() => {handleDeletingItem(item)}}/>
+              <DeleteButton onClick={() => {handleDeletingItem(item)}}>
+                <DeleteIcon />  
+              </DeleteButton>>
             </ItemHeader>
             <ItemQuantity>
               <i>

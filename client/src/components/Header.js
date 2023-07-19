@@ -89,7 +89,7 @@ const Header = () => {
         ): <></>}
         <InventoryNavButton onClick={() => {navigate('/')}}>
           <h2>
-            Inventory
+            All Inventories
           </h2>
         </InventoryNavButton>
         <ActionMenu>
