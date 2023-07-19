@@ -7,13 +7,13 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://postgres:docker@localhost:5432/z_prefix_submission'
+    connection: 'postgres://postgres:docker@db:5432/db'
   },
 
   staging: {
     client: 'pg',
     connection: {
-      database: 'my_db',
+      database: 'db',
       user:     'username',
       password: 'password'
     },
@@ -29,7 +29,7 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-      database: 'my_db',
+      database: 'db',
       user:     'username',
       password: 'password'
     },

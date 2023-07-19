@@ -33,36 +33,35 @@ const ItemContainer = Styled.div`
 `;
 
 const Item = Styled.div`
-  width: 10vw;
-  height: 10vw;
+  width: 11vw;
+  height: 11vw;
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: 1vh;
-  margin-right: 2vh;
-  margin-bottom: 2vh;
-  padding: 2vw;
+  margin: 0.5vw;
+  padding: 1vw;
   cursor: pointer;
   border: 1px solid #0004;
   box-shadow: 0px 0px 10px #16689530;
   &:hover {
     box-shadow: none;
   }
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 210px;
+  min-height: 210px;
 `;
 
 const ItemHeader = Styled.h3`
   display: flex;
   justify-content: space-between;
   margin-top: 1vh;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #0004;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 `;
 
 const ItemQuantity = Styled.small`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const ItemDescription = Styled.div`

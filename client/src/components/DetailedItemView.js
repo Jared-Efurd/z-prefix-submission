@@ -19,22 +19,22 @@ const Container = Styled.div`
 
 const Header = Styled.header`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: calc(100% - 24px) 24px;
 `;
 
 const Heading = Styled.h2`
-  grid-column: 2 / 3;
+  grid-column: 1 / 2;
   text-align: center;
 `;
 
 const EditButton = Styled(EditIcon)`
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   cursor: pointer;
   padding-left: calc(100% - 24px);
 `;
 
 const ExitButton = Styled(ExitIcon)`
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   cursor: pointer;
   padding-left: calc(100% - 24px);
 `;
