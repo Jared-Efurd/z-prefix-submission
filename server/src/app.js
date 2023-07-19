@@ -14,23 +14,24 @@ app.get('/', (req, res) => {
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  if (username && password) {
-    knex('user')
-      .select('*')
-      .where('username', username)
-      .where('password', password)
-      .then(users => {
+  knex('user')
+    .select('*')
+    .where('username', username)
+    .where('password', password)
+    .then(users => {
+      if (users.length > 0) {
         const user = users[0];
+
         delete user.password;
         res.status(200).send(JSON.stringify(user));
-      })
-      .catch(err => {
-        res.status(401).send(JSON.stringify({message:`Invalid username or password!`}));
-        console.log(err);
+      } else {
+        res.status(404).send(JSON.stringify({message:`Incorrect username or password!`}));
+      }
+    })
+    .catch(err => {
+      res.status(404).send(JSON.stringify({message:`Incorrect username or password!`}));
+      console.log(err);
       });
-  } else {
-    res.status(401).send(JSON.stringify({message:`Invalid username or password!`}));
-  }
 })
 
 app.post('/users', (req, res) => {

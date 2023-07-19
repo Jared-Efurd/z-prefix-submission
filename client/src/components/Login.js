@@ -57,6 +57,16 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
+    if (username.length === 0 ) {
+      notify('Username is required', 'error', 'top-center');
+      return;
+    }
+
+    if (password.length === 0) {
+      notify('Password is required', 'error', 'top-center');
+      return;
+    }
+
     fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: {
@@ -67,12 +77,18 @@ const Login = () => {
         password: password
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else if (res.status === 404) {
+          throw new Error('Incorrect username or password!')
+        }
+      })
       .then(data => {
         setUser(data);
       })
       .catch(err => {
-        notify('There was an error logging in...', 'error', 'top-center');
+        notify('Incorrect username/password combination', 'error', 'top-center');
       });
   }
 
