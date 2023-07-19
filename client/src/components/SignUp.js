@@ -97,7 +97,14 @@ const SignUp = () => {
         password: password
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else if (res.status === 409) {
+          notify('An account with that username already exists!', 'error', 'top-center');
+          throw new Error('An account with that username already exists');
+        } 
+      })
       .then(data => {
         setUser(data);
       })

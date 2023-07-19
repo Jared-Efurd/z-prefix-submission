@@ -36,92 +36,26 @@ app.post('/login', (req, res) => {
 
 app.post('/users', (req, res) => {
   const { first_name, last_name, username, password } = req.body;
-
-  if ( first_name && last_name && username && password) {
-    knex('user')
-      .select('*')
-      .where('username', username)
-      .then(users => {
-        if (users.length > 0) {
-          res.status(409).send(JSON.stringify({message:`Username is already in use!`}));
-        } else {
-          const newUser = req.body;
-          knex('user')
-            .insert(newUser, ['id', 'first_name', 'last_name', 'username'])
-            .then(users => {
-              const user = users[0];
-              res.status(201).send(JSON.stringify(user));
-              console.log(`Successfully added new user`);
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        }
-      })
-  } else {
-    res.status(401).send(JSON.stringify({message:`Invalid info provided!`}));
-  }
-})
-
-app.post('/items', (req, res) => {
-  const { user_id, name, description, quantity } = req.body;
-
-  if (user_id && name && description && quantity) {
-    knex('item')
-      .select('*')
-      .where('user_id', user_id)
-      .where('name', name)
-      .then(items => {
-        if (items.length > 0) {
-          res.status(409).send(JSON.stringify({message:`Item already exists!`}));
-        } else {
-          const item = {
-            user_id: user_id,
-            name: name, 
-            description: description,
-            quantity: quantity
-          };
-          knex('item')
-            .insert(item, ['id', 'user_id', 'name', 'description', 'quantity'])
-            .then(items => {
-              const newItem = items[0];
-              res.status(201).send(JSON.stringify(newItem));
-              console.log(`Successfully added new item`);
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        }
-      })
-  } else {
-    res.status(401).send(JSON.stringify({message:`Invalid info provided!`}));
-  }
-})
-
-app.get('/items', (req, res) => {
-  knex('item')
+  knex('user')
     .select('*')
-    .then(items => {
-      if (items.length > 0) {
-        res.status(200).send(JSON.stringify(items));
+    .where('username', username)
+    .then(users => {
+      if (users.length > 0) {
+        res.status(409).send(JSON.stringify({message:`Username is already in use!`}));
       } else {
-        res.status(404).send(JSON.stringify({message:`Items not found!`}));
+        const newUser = req.body;
+        knex('user')
+          .insert(newUser, ['id', 'first_name', 'last_name', 'username'])
+          .then(users => {
+            const user = users[0];
+            res.status(201).send(JSON.stringify(user));
+            console.log(`Successfully added new user`);
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(400).send(JSON.stringify({message:`Error adding new user!`}));
+          })
       }
-    })
-})
-
-app.get('/items/:itemId', (req, res) => {
-  const itemId = req.params.itemId;
-
-  knex('item')
-    .select('*')
-    .where('id', itemId)
-    .then(items => {
-      const item = items[0];
-      res.status(200).send(JSON.stringify(item));
-    })
-    .catch(err => {
-      res.status(404).send(JSON.stringify({message:`Item not found!`}));
     })
 })
 
@@ -189,6 +123,68 @@ app.put('/users/:userId/items/:itemId/update', (req, res) => {
         console.log(err);
       })
   }
+})
+
+app.post('/items', (req, res) => {
+  const { user_id, name, description, quantity } = req.body;
+
+  if (user_id && name && description && quantity) {
+    knex('item')
+      .select('*')
+      .where('user_id', user_id)
+      .where('name', name)
+      .then(items => {
+        if (items.length > 0) {
+          res.status(409).send(JSON.stringify({message:`Item already exists!`}));
+        } else {
+          const item = {
+            user_id: user_id,
+            name: name, 
+            description: description,
+            quantity: quantity
+          };
+          knex('item')
+            .insert(item, ['id', 'user_id', 'name', 'description', 'quantity'])
+            .then(items => {
+              const newItem = items[0];
+              res.status(201).send(JSON.stringify(newItem));
+              console.log(`Successfully added new item`);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+      })
+  } else {
+    res.status(401).send(JSON.stringify({message:`Invalid info provided!`}));
+  }
+})
+
+app.get('/items', (req, res) => {
+  knex('item')
+    .select('*')
+    .then(items => {
+      if (items.length > 0) {
+        res.status(200).send(JSON.stringify(items));
+      } else {
+        res.status(404).send(JSON.stringify({message:`Items not found!`}));
+      }
+    })
+})
+
+app.get('/items/:itemId', (req, res) => {
+  const itemId = req.params.itemId;
+
+  knex('item')
+    .select('*')
+    .where('id', itemId)
+    .then(items => {
+      const item = items[0];
+      res.status(200).send(JSON.stringify(item));
+    })
+    .catch(err => {
+      res.status(404).send(JSON.stringify({message:`Item not found!`}));
+    })
 })
 
 app.listen(port, () => {
