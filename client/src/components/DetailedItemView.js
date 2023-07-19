@@ -96,7 +96,11 @@ const DetailedItemView = () => {
     fetch(`http://localhost:8080/items/${itemId}`)
       .then(res => res.json())
       .then(data => {
-        setItem(data);
+        const item = data;
+        setItem(item)
+        setName(item.name);
+        setQuantity(item.quantity);
+        setDescription(item.description);
       })
       .catch(err => {
         notify('Failed to fetch item...', 'error', 'top-center');
@@ -107,9 +111,6 @@ const DetailedItemView = () => {
 
   const toggleEditMode = () =>{
     setEditMode(!editMode);
-    setName(item.name);
-    setQuantity(item.quantity);
-    setDescription(item.description);
   }
 
   const handleApplyingChangesToItem = () => {
@@ -138,9 +139,13 @@ const DetailedItemView = () => {
     })
     .then(res => res.json())
     .then(data => {
-      setItem(data)
-      setEditMode(!editMode);
+      const item = data;
+      setItem(item)
+      setName(item.name);
+      setQuantity(item.quantity);
+      setDescription(item.description);
       notify('Item updated!', 'success', 'top-center');
+      toggleEditMode()
     })
   }
 
