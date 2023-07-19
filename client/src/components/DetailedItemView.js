@@ -45,8 +45,8 @@ const Divider = Styled.div`
   margin-bottom: 2vh;
 `;
 
-const ItemQuantity = Styled.div`
-
+const ItemQuantity = Styled.small`
+  margin-bottom: 20px;
 `;
 
 const ItemDescription = Styled.div`
@@ -201,7 +201,9 @@ const DetailedItemView = () => {
             </Header>
             <Divider />
             <ItemQuantity>
+              <i>
               {`Quantity: x${item.quantity}`}
+              </i>
             </ItemQuantity>
             <ItemDescription>
               {item.description}

@@ -73,10 +73,14 @@ const Item = Styled.div`
 const ItemHeader = Styled.h3`
   display: flex;
   justify-content: space-between;
+  margin-top: 1vh;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #0004;
+  padding-bottom: 20px;
 `;
 
-const ItemQuantity = Styled.div`
-
+const ItemQuantity = Styled.small`
+  margin-bottom: 20px;
 `;
 
 const ItemDescription = Styled.div`
@@ -140,7 +144,9 @@ const MyInventory = () => {
               <DeleteButton onClick={() => {handleDeletingItem(item)}}/>
             </ItemHeader>
             <ItemQuantity>
-              {`Quantity: x${item.quantity}`}
+              <i>
+                {`Quantity: x${item.quantity}`}
+              </i>
             </ItemQuantity>
             <ItemDescription>
               {item.description.length > 100 ? item.description.substring(0, 99) + '...' : item.description}

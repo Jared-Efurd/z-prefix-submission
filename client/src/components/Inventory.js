@@ -53,11 +53,16 @@ const Item = Styled.div`
 `;
 
 const ItemHeader = Styled.h3`
-  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1vh;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #0004;
+  padding-bottom: 20px;
 `;
 
-const ItemQuantity = Styled.div`
-
+const ItemQuantity = Styled.small`
+  margin-bottom: 20px;
 `;
 
 const ItemDescription = Styled.div`
@@ -114,7 +119,7 @@ const Inventory = () => {
     <>
       <Container>
         <Header>
-          Inventory
+          Entire Inventory
         </Header>
         <Divider />
         <ItemContainer>

@@ -118,7 +118,7 @@ const CreateNewItem = () => {
     <>
       <Container>
         <Header>
-          Create a new item
+          Create New Item
         </Header>
         <Divider />
         <Input 
