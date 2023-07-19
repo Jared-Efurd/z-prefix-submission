@@ -5,13 +5,14 @@ import { UserContext } from '../App';
 import Toaster, { notify } from './Toaster'
 
 const Container = Styled.div`
-  background-color: #D9D9D9;
+  background-color: white;
   display: flex;
   flex-direction: column;
   padding: 2vw;
   margin-top: 5vh;
   margin-left: 20vw;
   margin-right: 20vw;
+  border: 1px solid #0004;
 `;
 
 const Header = Styled.h2`
@@ -19,7 +20,7 @@ const Header = Styled.h2`
 `;
 
 const Divider = Styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #0008;
   margin-top: 2vh;
   margin-bottom: 2vh;
 `;
@@ -30,6 +31,7 @@ const Input = Styled.input`
   outline: none;
   border: none;
   padding: 1vh;
+  border-bottom: 1px solid #0004;
 `;
 
 const TextArea = Styled.textarea`
@@ -41,6 +43,7 @@ const TextArea = Styled.textarea`
   resize: none;
   overflow-y: auto;
   box-sizing: border-box;
+  border: 1px solid #0004;
 `;
 
 const SaveButton = Styled.button`

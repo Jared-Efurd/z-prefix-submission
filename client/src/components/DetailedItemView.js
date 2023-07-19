@@ -7,13 +7,14 @@ import Toaster, { notify } from './Toaster'
 import { ReactComponent as EditIcon } from '../images/edit-icon.svg';
 
 const Container = Styled.div`
-  background-color: #D9D9D9;
+  background-color: white;
   display: flex;
   flex-direction: column;
   padding: 2vw;
   margin-top: 5vh;
   margin-left: 20vw;
   margin-right: 20vw;
+  border: 1px solid #0004;
 `;
 
 const Header = Styled.header`
@@ -33,7 +34,7 @@ const EditButton = Styled(EditIcon)`
 `;
 
 const Divider = Styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #0008;
   margin-top: 2vh;
   margin-bottom: 2vh;
 `;
@@ -53,6 +54,7 @@ const Input = Styled.input`
   border: none;
   padding: 1vh;
   grid-column: 1 / 4;
+  border-bottom: 1px solid #0004;
 `;
 
 const TextArea = Styled.textarea`
@@ -64,6 +66,7 @@ const TextArea = Styled.textarea`
   resize: none;
   overflow-y: auto;
   box-sizing: border-box;
+  border: 1px solid #0004;
 `;
 
 const ApplyChangesButton = Styled.button`
@@ -164,7 +167,6 @@ const DetailedItemView = () => {
                 onChange={(event) => { setName(event.target.value) }}
               />
             </Header>
-            <Divider />
             <Input 
               placeholder='Quantity' 
               type='number'

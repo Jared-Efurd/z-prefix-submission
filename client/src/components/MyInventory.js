@@ -7,13 +7,14 @@ import Toaster, { notify } from './Toaster'
 import { ReactComponent as DeleteIcon } from '../images/delete-icon.svg';
 
 const Container = Styled.div`
-  background-color: #D9D9D9;
+  background-color: white;
   display: flex;
   flex-direction: column;
   padding: 2vw;
   margin-top: 5vh;
   margin-left: 20vw;
   margin-right: 20vw;
+  border: 1px solid #0004;
 `;
 
 const Header = Styled.h2`
@@ -21,7 +22,7 @@ const Header = Styled.h2`
 `;
 
 const Divider = Styled.div`
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #0008;
   margin-top: 2vh;
   margin-bottom: 2vh;
 `;
@@ -54,12 +55,17 @@ const Item = Styled.div`
   height: 10vw;
   display: flex;
   flex-direction: column;
-  background-color: #D9D9D9;
+  background-color: white;
   border-radius: 1vh;
   margin-right: 2vh;
   margin-bottom: 2vh;
   padding: 1vw;
   cursor: pointer;
+  border: 1px solid #0004;
+  box-shadow: 0px 0px 16px #0004;
+  &:hover {
+    box-shadow: 0px 0px 20px #0002;
+  }
 `;
 
 const ItemHeader = Styled.h3`

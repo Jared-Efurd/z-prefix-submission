@@ -5,23 +5,30 @@ import { UserContext } from '../App';
 
 
 const Container = Styled.div`
-  background-color: #D9D9D9;
+  background-color: white;
   height: 10vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  box-shadow: 0px 0px 16px #0004;
 `;
 
 const MyInventoryNavButton = Styled.div`
   grid-column: 1 / 2;
   cursor: pointer;
   padding-left: 1vw;
+  &:hover {
+    color: #166895
+  };
 `;
 
 const InventoryNavButton = Styled.div`
   grid-column: 2 / 3;
   cursor: pointer;
   text-align: center;
+  &:hover {
+    color: #166895
+  };
 `;
 
 const LoginNavButton = Styled.div`
@@ -29,6 +36,9 @@ const LoginNavButton = Styled.div`
   cursor: pointer;
   text-align: right;
   padding-right: 1vw;
+  &:hover {
+    color: #166895
+  };
 `;
 
 const LogoutNavButton = Styled.div`
@@ -36,6 +46,9 @@ const LogoutNavButton = Styled.div`
   cursor: pointer;
   text-align: right;
   padding-right: 1vw;
+  &:hover {
+    color: #166895
+  };
 `;
 
 const Header = () => {
