@@ -144,7 +144,7 @@ const MyInventory = () => {
               {item.name}
               <DeleteButton onClick={() => {handleDeletingItem(item)}}>
                 <DeleteIcon />  
-              </DeleteButton>>
+              </DeleteButton>
             </ItemHeader>
             <ItemQuantity>
               <i>

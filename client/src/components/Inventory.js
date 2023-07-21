@@ -92,6 +92,8 @@ const Inventory = () => {
   }, 
   [user]);
 
+  
+
   const displayItems = () => {
     if (items.length > 0) {
       return items.map((item) => {

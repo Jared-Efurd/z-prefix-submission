@@ -6,6 +6,7 @@ import Toaster, { notify } from './Toaster'
 
 import { ReactComponent as EditIcon } from '../images/edit-icon.svg';
 import { ReactComponent as ExitIcon } from '../images/exit-icon.svg';
+import { ReactComponent as BackIcon } from '../images/left-arrow.svg';
 
 const Container = Styled.div`
   background-color: white;
@@ -19,22 +20,28 @@ const Container = Styled.div`
 
 const Header = Styled.header`
   display: grid;
-  grid-template-columns: calc(100% - 24px) 24px;
+  grid-template-columns: 24px calc(100% - 48px) 24px;
 `;
 
 const Heading = Styled.h2`
-  grid-column: 1 / 2;
+  grid-column: 2 / 3;
   text-align: center;
 `;
 
+const BackButton = Styled(BackIcon)`
+  grid-column: 1 / 2;
+  cursor: pointer;
+  padding-right: calc(100% - 24px);
+`;
+
 const EditButton = Styled(EditIcon)`
-  grid-column: 2 / 3;
+  grid-column: 3 / 4;
   cursor: pointer;
   padding-left: calc(100% - 24px);
 `;
 
 const ExitButton = Styled(ExitIcon)`
-  grid-column: 2 / 3;
+  grid-column: 3 / 4;
   cursor: pointer;
   padding-left: calc(100% - 24px);
 `;
@@ -164,6 +171,7 @@ const DetailedItemView = () => {
         return (
           <>
             <Header>
+              <BackButton onClick={() => {navigate(user.id > 0 ? '/my-inventory' : '/')}} />
               <Heading>Edit Item</Heading>
               {user.id === item.user_id && (editMode ? <ExitButton onClick={toggleEditMode}/> : <EditButton onClick={toggleEditMode} />)}
               <Input 
@@ -194,6 +202,7 @@ const DetailedItemView = () => {
         return (
           <>
             <Header>
+              <BackButton onClick={() => {navigate(user.id > 0 ? '/my-inventory' : '/')}} />
               <Heading>
                 {item.name}
               </Heading>
